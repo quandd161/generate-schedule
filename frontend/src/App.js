@@ -127,7 +127,7 @@ function App() {
 
         const grid = {};
         const subjectColorMap = {};
-        
+
         // Assign colors to subjects
         scheduleData.sessions.forEach((session, index) => {
             if (!subjectColorMap[session.subject]) {
@@ -142,7 +142,7 @@ function App() {
             const tiets = mapTimeSlotToTiet(session.timeSlot);
             const tietIndex = Math.floor(Math.random() * tiets.length);
             const startTiet = tiets[tietIndex];
-            
+
             // Calculate how many slots this session should occupy (1 hour = 1 slot)
             const rowSpan = Math.ceil(session.hours);
 
@@ -183,11 +183,11 @@ function App() {
                 const newGrid = { ...prevGrid };
                 const activeCell = newGrid[active.id];
                 const overCell = newGrid[over.id];
-                
+
                 // Only move if it's a valid subject cell (not occupied)
                 if (activeCell && !activeCell.occupied) {
                     const activeRowSpan = activeCell.rowSpan || 1;
-                    
+
                     // Clear old position and occupied cells of active
                     delete newGrid[active.id];
                     for (let i = 1; i < activeRowSpan; i++) {
@@ -195,11 +195,11 @@ function App() {
                         const occupiedKey = `${day}-${parseInt(tiet) + i}`;
                         delete newGrid[occupiedKey];
                     }
-                    
+
                     // If over cell has a subject, swap positions
                     if (overCell && !overCell.occupied) {
                         const overRowSpan = overCell.rowSpan || 1;
-                        
+
                         // Clear over position and occupied cells
                         delete newGrid[over.id];
                         for (let i = 1; i < overRowSpan; i++) {
@@ -207,7 +207,7 @@ function App() {
                             const occupiedKey = `${day}-${parseInt(tiet) + i}`;
                             delete newGrid[occupiedKey];
                         }
-                        
+
                         // Place over cell at active position
                         newGrid[active.id] = overCell;
                         for (let i = 1; i < overRowSpan; i++) {
@@ -216,7 +216,7 @@ function App() {
                             newGrid[occupiedKey] = { occupied: true };
                         }
                     }
-                    
+
                     // Place active cell at over position
                     newGrid[over.id] = activeCell;
                     for (let i = 1; i < activeRowSpan; i++) {
@@ -225,7 +225,7 @@ function App() {
                         newGrid[occupiedKey] = { occupied: true };
                     }
                 }
-                
+
                 return newGrid;
             });
         }
@@ -245,147 +245,147 @@ function App() {
                         <p className="subtitle">Tạo lịch học tự động, tối ưu thời gian học tập - Kéo thả để sắp xếp lại!</p>
                     </header>
 
-                <div className="form-section">
-                    <h2>Thông Tin Môn Học</h2>
+                    <div className="form-section">
+                        <h2>Thông Tin Môn Học</h2>
 
-                    <div className="subjects-container">
-                        {subjects.map((subject, index) => (
-                            <div key={index} className="subject-row">
-                                <input
-                                    type="text"
-                                    placeholder="Tên môn học"
-                                    value={subject.name}
-                                    onChange={(e) => updateSubject(index, 'name', e.target.value)}
-                                    className="input-field"
-                                />
-
-                                <div className="input-group">
-                                    <label>Số giờ/tuần</label>
+                        <div className="subjects-container">
+                            {subjects.map((subject, index) => (
+                                <div key={index} className="subject-row">
                                     <input
-                                        type="number"
-                                        min="1"
-                                        max="40"
-                                        value={subject.hoursPerWeek}
-                                        onChange={(e) => updateSubject(index, 'hoursPerWeek', parseInt(e.target.value))}
-                                        className="input-field-small"
+                                        type="text"
+                                        placeholder="Tên môn học"
+                                        value={subject.name}
+                                        onChange={(e) => updateSubject(index, 'name', e.target.value)}
+                                        className="input-field"
                                     />
-                                </div>
 
-                                <div className="input-group">
-                                    <label>Độ khó</label>
-                                    <select
-                                        value={subject.difficulty}
-                                        onChange={(e) => updateSubject(index, 'difficulty', e.target.value)}
-                                        className="select-field"
-                                    >
-                                        <option value="easy">Dễ</option>
-                                        <option value="medium">Trung bình</option>
-                                        <option value="hard">Khó</option>
-                                    </select>
-                                </div>
-
-                                <div className="input-group">
-                                    <label>Ưu tiên</label>
-                                    <select
-                                        value={subject.priority}
-                                        onChange={(e) => updateSubject(index, 'priority', e.target.value)}
-                                        className="select-field"
-                                    >
-                                        <option value="low">Thấp</option>
-                                        <option value="medium">Trung bình</option>
-                                        <option value="high">Cao</option>
-                                    </select>
-                                </div>
-
-                                {subjects.length > 1 && (
-                                    <button onClick={() => removeSubject(index)} className="btn-remove" title="Xóa môn học">
-                                        ✕
-                                    </button>
-                                )}
-                            </div>
-                        ))}
-
-                        <button onClick={addSubject} className="btn-add">
-                            + Thêm Môn Học
-                        </button>
-                    </div>
-
-                    <div className="study-hours-section">
-                        <label>Số giờ học mỗi ngày: <strong>{studyHoursPerDay} giờ</strong></label>
-                        <input
-                            type="range"
-                            min="1"
-                            max="12"
-                            value={studyHoursPerDay}
-                            onChange={(e) => setStudyHoursPerDay(e.target.value)}
-                            className="slider"
-                        />
-                    </div>
-
-                    <button
-                        onClick={generateSchedule}
-                        className="btn-generate"
-                        disabled={loading}
-                    >
-                        {loading ? 'Đang tạo lịch...' : '🎯 Tạo Lịch Học'}
-                    </button>
-
-                    {error && <div className="error-message">{error}</div>}
-                </div>
-
-                {schedule && (
-                    <div className="schedule-section">
-                        <h2>Thời Khóa Biểu</h2>
-                        <p className="schedule-info">{schedule.message}</p>
-
-                        <div className="timetable-container">
-                            <table className="timetable">
-                                <thead>
-                                    <tr>
-                                        <th className="time-column">Tiết</th>
-                                        {DAYS.map(day => (
-                                            <th key={day}>{day}</th>
-                                        ))}
-                                        <th className="hour-column">Giờ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {TIME_SLOTS.map(slot => (
-                                        <tr key={slot.id}>
-                                            <td className="time-cell">{slot.label}</td>
-                                            {DAYS.map(day => {
-                                                const key = `${day}-${slot.id}`;
-                                                const cell = scheduleGrid[key];
-                                                return (
-                                                    <DroppableCell key={key} id={key} cell={cell} />
-                                                );
-                                            })}
-                                            <td className="hour-cell">{slot.time}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div className="legend">
-                            <h3>Chú thích:</h3>
-                            <div className="legend-items">
-                                {schedule.sessions && [...new Set(schedule.sessions.map(s => s.subject))].map((subject, index) => (
-                                    <div key={subject} className="legend-item">
-                                        <span
-                                            className="legend-color"
-                                            style={{ backgroundColor: SUBJECT_COLORS[index % SUBJECT_COLORS.length] }}
-                                        ></span>
-                                        <span>{subject}</span>
+                                    <div className="input-group">
+                                        <label>Số giờ/tuần</label>
+                                        <input
+                                            type="number"
+                                            min="1"
+                                            max="40"
+                                            value={subject.hoursPerWeek}
+                                            onChange={(e) => updateSubject(index, 'hoursPerWeek', parseInt(e.target.value))}
+                                            className="input-field-small"
+                                        />
                                     </div>
-                                ))}
+
+                                    <div className="input-group">
+                                        <label>Độ khó</label>
+                                        <select
+                                            value={subject.difficulty}
+                                            onChange={(e) => updateSubject(index, 'difficulty', e.target.value)}
+                                            className="select-field"
+                                        >
+                                            <option value="easy">Dễ</option>
+                                            <option value="medium">Trung bình</option>
+                                            <option value="hard">Khó</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="input-group">
+                                        <label>Ưu tiên</label>
+                                        <select
+                                            value={subject.priority}
+                                            onChange={(e) => updateSubject(index, 'priority', e.target.value)}
+                                            className="select-field"
+                                        >
+                                            <option value="low">Thấp</option>
+                                            <option value="medium">Trung bình</option>
+                                            <option value="high">Cao</option>
+                                        </select>
+                                    </div>
+
+                                    {subjects.length > 1 && (
+                                        <button onClick={() => removeSubject(index)} className="btn-remove" title="Xóa môn học">
+                                            ✕
+                                        </button>
+                                    )}
+                                </div>
+                            ))}
+
+                            <button onClick={addSubject} className="btn-add">
+                                + Thêm Môn Học
+                            </button>
+                        </div>
+
+                        <div className="study-hours-section">
+                            <label>Số giờ học mỗi ngày: <strong>{studyHoursPerDay} giờ</strong></label>
+                            <input
+                                type="range"
+                                min="1"
+                                max="12"
+                                value={studyHoursPerDay}
+                                onChange={(e) => setStudyHoursPerDay(e.target.value)}
+                                className="slider"
+                            />
+                        </div>
+
+                        <button
+                            onClick={generateSchedule}
+                            className="btn-generate"
+                            disabled={loading}
+                        >
+                            {loading ? 'Đang tạo lịch...' : '🎯 Tạo Lịch Học'}
+                        </button>
+
+                        {error && <div className="error-message">{error}</div>}
+                    </div>
+
+                    {schedule && (
+                        <div className="schedule-section">
+                            <h2>Thời Khóa Biểu</h2>
+                            <p className="schedule-info">{schedule.message}</p>
+
+                            <div className="timetable-container">
+                                <table className="timetable">
+                                    <thead>
+                                        <tr>
+                                            <th className="time-column">Tiết</th>
+                                            {DAYS.map(day => (
+                                                <th key={day}>{day}</th>
+                                            ))}
+                                            <th className="hour-column">Giờ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {TIME_SLOTS.map(slot => (
+                                            <tr key={slot.id}>
+                                                <td className="time-cell">{slot.label}</td>
+                                                {DAYS.map(day => {
+                                                    const key = `${day}-${slot.id}`;
+                                                    const cell = scheduleGrid[key];
+                                                    return (
+                                                        <DroppableCell key={key} id={key} cell={cell} />
+                                                    );
+                                                })}
+                                                <td className="hour-cell">{slot.time}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div className="legend">
+                                <h3>Chú thích:</h3>
+                                <div className="legend-items">
+                                    {schedule.sessions && [...new Set(schedule.sessions.map(s => s.subject))].map((subject, index) => (
+                                        <div key={subject} className="legend-item">
+                                            <span
+                                                className="legend-color"
+                                                style={{ backgroundColor: SUBJECT_COLORS[index % SUBJECT_COLORS.length] }}
+                                            ></span>
+                                            <span>{subject}</span>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                    )}
                 </div>
             </div>
-            
+
             <DragOverlay>
                 {activeId && scheduleGrid[activeId] ? (
                     <div
