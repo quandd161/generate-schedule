@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: study-scheduler-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - study-scheduler-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: study-scheduler-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - study-scheduler-network
+    restart: unless-stopped
+
+networks:
+  study-scheduler-network:
+    driver: bridge

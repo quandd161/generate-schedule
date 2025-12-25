@@ -1,0 +1,462 @@
+.App {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px 0;
+}
+
+.container {
+    max-width: 1400px;
+    width: 100%;
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #2196F3;
+}
+
+h1 {
+    color: #1976D2;
+    margin-bottom: 10px;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.form-section {
+    margin-bottom: 40px;
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.subjects-container {
+    margin-bottom: 20px;
+}
+
+.subject-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    gap: 12px;
+    margin-bottom: 15px;
+    align-items: end;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.input-field {
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #2196F3;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+.input-field-small {
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.input-field-small:focus {
+    outline: none;
+    border-color: #2196F3;
+}
+
+.select-field {
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.select-field:focus {
+    outline: none;
+    border-color: #2196F3;
+}
+
+.btn-remove {
+    padding: 12px 16px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+    height: 46px;
+}
+
+.btn-remove:hover {
+    background-color: #d32f2f;
+    transform: scale(1.05);
+}
+
+.btn-add {
+    width: 100%;
+    padding: 14px 24px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-add:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.study-hours-section {
+    margin: 25px 0;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    border: 2px solid #e3f2fd;
+}
+
+.study-hours-section label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #333;
+    font-size: 1.05rem;
+}
+
+.study-hours-section strong {
+    color: #2196F3;
+}
+
+.slider {
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: linear-gradient(to right, #2196F3, #21CBF3);
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #2196F3;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.4);
+}
+
+.slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #2196F3;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.4);
+}
+
+.btn-generate {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-generate:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(33, 150, 243, 0.4);
+}
+
+.btn-generate:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.error-message {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ffebee;
+    border: 2px solid #ef5350;
+    border-radius: 8px;
+    color: #c62828;
+    text-align: center;
+    font-weight: 500;
+}
+
+.schedule-section {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 3px solid #2196F3;
+}
+
+.schedule-info {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+.timetable-container {
+    overflow-x: auto;
+    margin: 30px 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.timetable {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    min-width: 900px;
+}
+
+.timetable thead tr {
+    background: linear-gradient(135deg, #1976D2 0%, #2196F3 100%);
+    color: white;
+}
+
+.timetable th {
+    padding: 15px 10px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid #90CAF9;
+}
+
+.time-column,
+.hour-column {
+    background: #1565C0 !important;
+    width: 80px;
+    font-weight: 700;
+}
+
+.timetable tbody tr {
+    transition: background-color 0.2s;
+}
+
+.timetable tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.timetable tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.timetable td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    height: 60px;
+    vertical-align: middle;
+}
+
+.time-cell,
+.hour-cell {
+    background-color: #e3f2fd;
+    font-weight: 600;
+    color: #1976D2;
+    font-size: 13px;
+}
+
+.schedule-cell {
+    padding: 4px;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.schedule-cell.drop-over {
+    background-color: #e3f2fd !important;
+    box-shadow: inset 0 0 0 2px #2196F3;
+}
+
+.subject-cell {
+    height: 100%;
+    min-height: 50px;
+    border-radius: 6px;
+    padding: 8px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    user-select: none;
+}
+
+.subject-cell:active {
+    cursor: grabbing;
+}
+
+.subject-cell.dragging {
+    opacity: 0.8;
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.subject-cell:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.subject-cell .subject-name {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+    text-align: center;
+    line-height: 1.2;
+    color: white;
+}
+
+.subject-cell .subject-hours {
+    font-size: 11px;
+    opacity: 0.9;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    color: white;
+}
+
+.legend {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+}
+
+.legend h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.legend-item span:last-child {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .subject-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .btn-remove {
+        width: 100%;
+    }
+
+    .timetable-container {
+        margin: 20px -20px;
+    }
+
+    .timetable th,
+    .timetable td {
+        padding: 8px 4px;
+        font-size: 12px;
+    }
+
+    .subject-cell {
+        min-height: 40px;
+        padding: 5px;
+    }
+
+    .subject-cell .subject-name {
+        font-size: 11px;
+    }
+
+    .subject-cell .subject-hours {
+        font-size: 10px;
+    }
+}
